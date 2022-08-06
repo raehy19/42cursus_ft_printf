@@ -46,5 +46,9 @@ fclean : clean
 re : fclean
 	make all
 
+run : all
+	gcc libftprintf.a main.c
+	./a.out
+
 .PHONY : all clean fclean re
 

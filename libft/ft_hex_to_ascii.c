@@ -24,13 +24,14 @@ long long	ft_cal_digit_hex(long long n)
 	}
 	return (digit);
 }
+#include "stdio.h"
 
 long long	ft_cal_ltoa_hex_u(char *dst, long long i, long long num)
 {
-	if (num / 10 > 0)
-		*(dst + i) = 'A' + (num % 10);
+	if (((num % 16) / 10) > 0)
+		*(dst + i) = 'A' + ((num % 16) % 10);
 	else
-		*(dst + i) = '0' + (num % 10);
+		*(dst + i) = '0' + ((num % 16) % 10);
 	if (num < 16)
 		return (i);
 	else
@@ -39,10 +40,10 @@ long long	ft_cal_ltoa_hex_u(char *dst, long long i, long long num)
 
 long long	ft_cal_ltoa_hex_l(char *dst, long long i, long long num)
 {
-	if (num / 10 > 0)
-		*(dst + i) = 'a' + (num % 10);
+	if (((num % 16) / 10) > 0)
+		*(dst + i) = 'a' + ((num % 16) % 10);
 	else
-		*(dst + i) = '0' + (num % 10);
+		*(dst + i) = '0' + ((num % 16) % 10);
 	if (num < 16)
 		return (i);
 	else
