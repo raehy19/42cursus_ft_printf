@@ -19,9 +19,9 @@ ARFLAG := crs
 
 SRCS := \
 	ft_strlen.c \
+	ft_strrev.c \
 	ft_long_to_ascii.c \
-	ft_hex_to_ascii_lower.c \
-	ft_hex_to_ascii_upper.c \
+	ft_hex_to_ascii.c \
 
 OBJS = $(SRCS:.c=.o)
 

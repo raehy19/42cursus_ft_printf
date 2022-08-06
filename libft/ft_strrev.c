@@ -1,21 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: rjeong <rjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 16:42:32 by rjeong            #+#    #+#             */
-/*   Updated: 2022/07/08 23:30:35 by rjeong           ###   ########.fr       */
+/*   Created: 2022/08/06 17:15:00 by rjeong            #+#    #+#             */
+/*   Updated: 2022/08/06 17:15:01 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_strlen(const char *s)
+char	*ft_strrev(char *str, long long len)
 {
-	int	i;
+	long long	i;
+	char		temp;
 
 	i = 0;
-	while (*(s + i) != 0)
+	while (i < len - 1 - i)
+	{
+		temp = *(str + i);
+		*(str + i) = *(str + len - 1 - i);
+		*(str + len - 1 - i) = temp;
 		++i;
-	return (i);
+	}
+	return (str);
 }
+

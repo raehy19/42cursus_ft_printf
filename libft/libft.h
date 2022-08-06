@@ -10,16 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef LIBFT_H
+#ifndef LIBFT_H
 # define LIBFT_H
 
-#include "stdarg.h"
-#include "stdlib.h"
-#include "unistd.h"
+# include "stdarg.h"
+# include "stdlib.h"
+# include "unistd.h"
 
 int		ft_strlen(const char *s);
 char	*ft_long_to_ascii(long long n);
-char	*ft_hex_to_ascii_upper(long long n);
-char	*ft_hex_to_ascii_lower(long long n);
+char	*ft_hex_to_ascii(long long n, char flag);
+char	*ft_strrev(char *str, long long len);
 
 #endif

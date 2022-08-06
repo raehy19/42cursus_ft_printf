@@ -12,23 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_strrev(char *str, long long len)
-{
-	long long	i;
-	char		temp;
-
-	i = 0;
-	while (i < len - 1 - i)
-	{
-		temp = *(str + i);
-		*(str + i) = *(str + len - 1 - i);
-		*(str + len - 1 - i) = temp;
-		++i;
-	}
-	return (str);
-}
-
-long long	ft_cal_digit(long long n)
+long long	ft_cal_digit_dec(long long n)
 {
 	long long	digit;
 
@@ -41,13 +25,13 @@ long long	ft_cal_digit(long long n)
 	return (digit);
 }
 
-long long	ft_cal_ltoa(char *dst, long long i, long long num)
+long long	ft_cal_ltoa_dec(char *dst, long long i, long long num)
 {
 	*(dst + i) = '0' + (num % 10);
 	if (num < 10)
 		return (i);
 	else
-		return (ft_cal_ltoa(dst, i + 1, num / 10));
+		return (ft_cal_ltoa_dec(dst, i + 1, num / 10));
 }
 
 char	*ft_long_to_ascii(long long n)
@@ -61,11 +45,11 @@ char	*ft_long_to_ascii(long long n)
 		n *= -1;
 		++size;
 	}
-	size += ft_cal_digit(n);
+	size += ft_cal_digit_dec(n);
 	dst = (char *) malloc (sizeof(char) * (size + 1));
 	if (!dst)
 		return (NULL);
-	if (ft_cal_ltoa(dst, 0, n) + 1 < size)
+	if (ft_cal_ltoa_dec(dst, 0, n) + 1 < size)
 		*(dst + size - 1) = '-';
 	*(dst + size) = '\0';
 	return (ft_strrev(dst, size));

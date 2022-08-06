@@ -12,23 +12,7 @@
 
 #include "libft.h"
 
-char	*ft_strrev(char *str, long long len)
-{
-	long long	i;
-	char		temp;
-
-	i = 0;
-	while (i < len - 1 - i)
-	{
-		temp = *(str + i);
-		*(str + i) = *(str + len - 1 - i);
-		*(str + len - 1 - i) = temp;
-		++i;
-	}
-	return (str);
-}
-
-long long	ft_cal_digit(long long n)
+long long	ft_cal_digit_hex(long long n)
 {
 	long long	digit;
 
@@ -41,7 +25,19 @@ long long	ft_cal_digit(long long n)
 	return (digit);
 }
 
-long long	ft_cal_ltoa(char *dst, long long i, long long num)
+long long	ft_cal_ltoa_hex_u(char *dst, long long i, long long num)
+{
+	if (num / 10 > 0)
+		*(dst + i) = 'A' + (num % 10);
+	else
+		*(dst + i) = '0' + (num % 10);
+	if (num < 16)
+		return (i);
+	else
+		return (ft_cal_ltoa_hex_u(dst, i + 1, num / 16));
+}
+
+long long	ft_cal_ltoa_hex_l(char *dst, long long i, long long num)
 {
 	if (num / 10 > 0)
 		*(dst + i) = 'a' + (num % 10);
@@ -50,20 +46,25 @@ long long	ft_cal_ltoa(char *dst, long long i, long long num)
 	if (num < 16)
 		return (i);
 	else
-		return (ft_cal_ltoa(dst, i + 1, num / 16));
+		return (ft_cal_ltoa_hex_l(dst, i + 1, num / 16));
 }
 
-char	*ft_hex_to_ascii_upper(long long n)
+char	*ft_hex_to_ascii(long long n, char flag)
 {
 	char		*dst;
 	long long	size;
 
 	size = 0;
-	size += ft_cal_digit(n);
+	size += ft_cal_digit_hex(n);
 	dst = (char *) malloc (sizeof(char) * (size + 1));
 	if (!dst)
 		return (NULL);
-	ft_cal_ltoa(dst, 0, n);
+	if (flag == 'l')
+		ft_cal_ltoa_hex_l(dst, 0, n);
+	else if (flag == 'u')
+		ft_cal_ltoa_hex_u(dst, 0, n);
+	else
+		return (NULL);
 	*(dst + size) = '\0';
 	return (ft_strrev(dst, size));
 }
