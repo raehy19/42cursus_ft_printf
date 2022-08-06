@@ -21,8 +21,8 @@ int	ft_choose_functions(int i, va_list ap)
 	functions[2] = ft_type_int;
 	functions[3] = ft_type_int;
 	functions[4] = ft_type_int;
-	functions[5] = ft_type_int;
-	functions[6] = ft_type_int;
+	functions[5] = ft_type_hex_lower;
+	functions[6] = ft_type_hex_upper;
 	functions[7] = ft_type_int;
 	return (functions[i](ap));
 }
@@ -35,37 +35,44 @@ int	ft_check_type(const char c, va_list ap)
 	if (c == '%')
 	{
 		write(1, "%", 1);
-		return (0);
+		return (1);
 	}
-	i = -1;
-	while (++i < 8)
+	i = 0;
+	while (i < 8)
+	{
 		if (*(options + i) == c)
 			return (ft_choose_functions(i, ap));
-	return (-1);
+		++i;
+	}
+	return (write(1, &c, 1));
 }
 
 int	ft_printf(const char *input, ...)
 {
 	va_list	ap;
 	int		i;
+	int		print_size;
+	int		temp;
 
 	va_start(ap, input);
 	i = 0;
+	print_size = 0;
 	while (*(input + i) != '\0')
 	{
 		if (*(input + i) == '%')
 		{
-			++i;
-			if (ft_check_type(*(input + i), ap))
+			temp = ft_check_type(*(input + (++i)), ap);
+			if (temp < 0)
 			{
 				va_end(ap);
 				return (-1);
 			}
+			print_size += temp;
 		}
 		else
-			write(1, input + i, 1);
+			print_size += write(1, input + i, 1);
 		++i;
 	}
 	va_end(ap);
-	return (i);
+	return (print_size);
 }

@@ -16,11 +16,28 @@ int	ft_type_hex_lower(va_list ap)
 {
 	long long	n;
 	char		*str;
+	int			size;
 
 	n = (long long) va_arg(ap, int);
-	str = ft_hex_to_ascii_lower(n);
+	str = ft_hex_to_ascii(n, 'l');
 	if (!str)
 		return (-1);
-	write(1, str, ft_strlen(str));
-	return (0);
+	size = write(1, str, ft_strlen(str));
+	free(str);
+	return (size);
+}
+
+int	ft_type_hex_upper(va_list ap)
+{
+	long long	n;
+	char		*str;
+	int			size;
+
+	n = (long long) va_arg(ap, int);
+	str = ft_hex_to_ascii(n, 'u');
+	if (!str)
+		return (-1);
+	size = write(1, str, ft_strlen(str));
+	free(str);
+	return (size);
 }

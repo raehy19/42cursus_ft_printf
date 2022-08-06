@@ -17,8 +17,7 @@ int	ft_type_character(va_list ap)
 	char	c;
 
 	c = (char) va_arg(ap, int);
-	write(1, &c, 1);
-	return (0);
+	return (write(1, &c, 1));
 }
 
 int	ft_type_string(va_list ap)
@@ -27,23 +26,23 @@ int	ft_type_string(va_list ap)
 
 	str = (char *) va_arg(ap, char *);
 	if (!str)
-		write(1, "(null)", 6);
+		return (write(1, "(null)", 6));
 	else
-		write(1, str, ft_strlen(str));
-	return (0);
+		return (write(1, str, ft_strlen(str)));
 }
 
 int	ft_type_int(va_list ap)
 {
 	long long	n;
 	char		*str;
+	int			size;
 
 	n = (long long) va_arg(ap, int);
 	str = ft_long_to_ascii(n);
 	if (!str)
 		return (-1);
-	write(1, str, ft_strlen(str));
-	return (0);
+	size = write(1, str, ft_strlen(str));
+	free(str);
+	return (size);
 }
-
 
