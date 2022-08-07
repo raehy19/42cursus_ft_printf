@@ -21,7 +21,7 @@ SRCS := \
 	ft_strlen.c \
 	ft_strrev.c \
 	ft_long_to_ascii.c \
-	ft_hex_to_ascii.c \
+	ft_unsigned_hex_to_ascii.c \
 
 OBJS = $(SRCS:.c=.o)
 

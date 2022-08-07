@@ -19,7 +19,7 @@
 
 int		ft_strlen(const char *s);
 char	*ft_long_to_ascii(long long n);
-char	*ft_hex_to_ascii(long long n, char flag);
+char	*ft_unsigned_hex_to_ascii(unsigned long long n, char flag);
 char	*ft_strrev(char *str, long long len);
 
 #endif
