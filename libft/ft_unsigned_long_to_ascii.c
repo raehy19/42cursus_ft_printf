@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_long_to_ascii.c                                 :+:      :+:    :+:   */
+/*   ft_unsigned_long_to_ascii.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rjeong <rjeong@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: rjeong <rjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/11 15:23:02 by rjeong            #+#    #+#             */
-/*   Updated: 2022/08/07 16:07:28 by rjeong           ###   ########.fr       */
+/*   Created: 2022/08/07 16:12:37 by rjeong            #+#    #+#             */
+/*   Updated: 2022/08/07 16:12:43 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_l_cal_digit_dec(long long n)
+int	ft_ul_cal_digit_dec(unsigned long long n)
 {
 	int	digit;
 
@@ -25,32 +25,26 @@ int	ft_l_cal_digit_dec(long long n)
 	return (digit);
 }
 
-int	ft_cal_ltoa_dec(char *dst, int i, long long num)
+int	ft_cal_ultoa_dec(char *dst, int i, unsigned long long num)
 {
 	*(dst + i) = '0' + (num % 10);
 	if (num < 10)
 		return (i);
 	else
-		return (ft_cal_ltoa_dec(dst, i + 1, num / 10));
+		return (ft_cal_ultoa_dec(dst, i + 1, num / 10));
 }
 
-char	*ft_long_to_ascii(long long n)
+char	*ft_unsigned_long_to_ascii(unsigned long long n)
 {
 	char	*dst;
 	int		size;
 
 	size = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		++size;
-	}
-	size += ft_l_cal_digit_dec(n);
+	size += ft_ul_cal_digit_dec(n);
 	dst = (char *) malloc (sizeof(char) * (size + 1));
 	if (!dst)
 		return (NULL);
-	if (ft_cal_ltoa_dec(dst, 0, n) + 1 < size)
-		*(dst + size - 1) = '-';
+	ft_cal_ultoa_dec(dst, 0, n);
 	*(dst + size) = '\0';
 	return (ft_strrev(dst, size));
 }
