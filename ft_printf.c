@@ -50,14 +50,14 @@ int	ft_check_type(const char c, va_list ap)
 int	ft_printf(const char *input, ...)
 {
 	va_list	ap;
-	int		i;
 	int		print_size;
+	int		i;
 	int		temp;
 
 	va_start(ap, input);
-	i = 0;
 	print_size = 0;
-	while (*(input + i) != '\0')
+	i = -1;
+	while (*(input + (++i)) != '\0')
 	{
 		if (*(input + i) == '%')
 		{
@@ -71,7 +71,6 @@ int	ft_printf(const char *input, ...)
 		}
 		else
 			print_size += write(1, input + i, 1);
-		++i;
 	}
 	va_end(ap);
 	return (print_size);

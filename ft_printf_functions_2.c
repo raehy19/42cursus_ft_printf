@@ -14,7 +14,7 @@
 
 int	ft_type_hex_lower(va_list ap)
 {
-	unsigned long long 	n;
+	unsigned long long	n;
 	char				*str;
 	int					size;
 
@@ -29,7 +29,7 @@ int	ft_type_hex_lower(va_list ap)
 
 int	ft_type_hex_upper(va_list ap)
 {
-	unsigned long long 	n;
+	unsigned long long	n;
 	char				*str;
 	int					size;
 
@@ -44,7 +44,7 @@ int	ft_type_hex_upper(va_list ap)
 
 int	ft_type_pointer(va_list ap)
 {
-	unsigned long long 	n;
+	unsigned long long	n;
 	char				*str;
 	int					size;
 

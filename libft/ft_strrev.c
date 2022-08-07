@@ -25,4 +25,3 @@ char	*ft_strrev(char *str, long long len)
 	}
 	return (str);
 }
-
