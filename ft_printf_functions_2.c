@@ -14,12 +14,12 @@
 
 int	ft_type_hex_lower(va_list ap)
 {
-	long long	n;
-	char		*str;
-	int			size;
+	unsigned long long 	n;
+	char				*str;
+	int					size;
 
-	n = (long long) va_arg(ap, int);
-	str = ft_hex_to_ascii(n, 'l');
+	n = (unsigned long long) va_arg(ap, unsigned int);
+	str = ft_unsigned_hex_to_ascii(n, 'a');
 	if (!str)
 		return (-1);
 	size = write(1, str, ft_strlen(str));
@@ -29,12 +29,12 @@ int	ft_type_hex_lower(va_list ap)
 
 int	ft_type_hex_upper(va_list ap)
 {
-	long long	n;
-	char		*str;
-	int			size;
+	unsigned long long 	n;
+	char				*str;
+	int					size;
 
-	n = (long long) va_arg(ap, int);
-	str = ft_hex_to_ascii(n, 'u');
+	n = (unsigned long long) va_arg(ap, unsigned int);
+	str = ft_unsigned_hex_to_ascii(n, 'A');
 	if (!str)
 		return (-1);
 	size = write(1, str, ft_strlen(str));
