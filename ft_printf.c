@@ -23,7 +23,7 @@ int	ft_choose_functions(int i, va_list ap)
 	functions[4] = ft_type_unsigned_int;
 	functions[5] = ft_type_hex_lower;
 	functions[6] = ft_type_hex_upper;
-	functions[7] = ft_type_int;
+	functions[7] = ft_type_pointer;
 	return (functions[i](ap));
 }
 

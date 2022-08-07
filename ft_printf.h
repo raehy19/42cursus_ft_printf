@@ -28,5 +28,6 @@ int	ft_type_int(va_list ap);
 int	ft_type_unsigned_int(va_list ap);
 int	ft_type_hex_lower(va_list ap);
 int	ft_type_hex_upper(va_list ap);
+int	ft_type_pointer(va_list ap);
 
 #endif
