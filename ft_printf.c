@@ -29,7 +29,7 @@ int	ft_choose_functions(int i, va_list ap)
 
 int	ft_check_type(const char c, va_list ap)
 {
-	const char	*options = "csdiuxXp";
+	const char	*types = "csdiuxXp";
 	int			i;
 
 	if (c == '%')
@@ -37,13 +37,10 @@ int	ft_check_type(const char c, va_list ap)
 		write(1, "%", 1);
 		return (1);
 	}
-	i = 0;
-	while (i < 8)
-	{
-		if (*(options + i) == c)
+	i = -1;
+	while (++i < 8)
+		if (*(types + i) == c)
 			return (ft_choose_functions(i, ap));
-		++i;
-	}
 	return (write(1, &c, 1));
 }
 
