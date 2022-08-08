@@ -33,10 +33,7 @@ int	ft_check_type(const char c, va_list ap)
 	int			i;
 
 	if (c == '%')
-	{
-		write(1, "%", 1);
-		return (1);
-	}
+		return (write(1, "%", 1));
 	i = -1;
 	while (++i < 8)
 		if (*(types + i) == c)
@@ -67,7 +64,12 @@ int	ft_printf(const char *input, ...)
 			print_size += temp;
 		}
 		else
-			print_size += write(1, input + i, 1);
+		{
+			temp = write(1, input + i, 1);
+			if (temp < 0)
+				return (-1);
+			print_size += temp;
+		}
 	}
 	va_end(ap);
 	return (print_size);

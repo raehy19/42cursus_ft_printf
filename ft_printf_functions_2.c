@@ -46,14 +46,19 @@ int	ft_type_pointer(va_list ap)
 {
 	unsigned long long	n;
 	char				*str;
-	int					size;
+	int					size_1;
+	int					size_2;
 
 	n = (unsigned long long) va_arg(ap, unsigned int *);
 	str = ft_unsigned_hex_to_ascii(n, 'a');
 	if (!str)
 		return (-1);
-	size = write (1, "0x", 2);
-	size += write(1, str, ft_strlen(str));
+	size_1 = write (1, "0x", 2);
+	if (size_1 < 0)
+		return (-1);
+	size_2 = write(1, str, ft_strlen(str));
 	free(str);
-	return (size);
+	if (size_2 < 0)
+		return (-1);
+	return (size_1 + size_2);
 }
