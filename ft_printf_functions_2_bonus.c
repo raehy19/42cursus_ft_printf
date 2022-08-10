@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ft_printf_bonus.h"
 
-int	ft_type_hex_lower(va_list ap)
+int	ft_type_hex_lower(va_list ap, t_flag *flag)
 {
 	unsigned long long	n;
 	char				*str;
 	int					size;
 
+	if (!flag)
+		return (0);
 	n = (unsigned long long) va_arg(ap, unsigned int);
 	str = ft_unsigned_hex_to_ascii(n, 'a');
 	if (!str)
@@ -27,12 +29,14 @@ int	ft_type_hex_lower(va_list ap)
 	return (size);
 }
 
-int	ft_type_hex_upper(va_list ap)
+int	ft_type_hex_upper(va_list ap, t_flag *flag)
 {
 	unsigned long long	n;
 	char				*str;
 	int					size;
 
+	if (!flag)
+		return (0);
 	n = (unsigned long long) va_arg(ap, unsigned int);
 	str = ft_unsigned_hex_to_ascii(n, 'A');
 	if (!str)
@@ -42,13 +46,15 @@ int	ft_type_hex_upper(va_list ap)
 	return (size);
 }
 
-int	ft_type_pointer(va_list ap)
+int	ft_type_pointer(va_list ap, t_flag *flag)
 {
 	unsigned long long	n;
 	char				*str;
 	int					size_1;
 	int					size_2;
 
+	if (!flag)
+		return (0);
 	n = (unsigned long long) va_arg(ap, unsigned int *);
 	str = ft_unsigned_hex_to_ascii(n, 'a');
 	if (!str)

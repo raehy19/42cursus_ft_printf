@@ -53,13 +53,13 @@ fclean : clean
 
 re : fclean
 	make all
-
-bonus : $(OBJS_BONUS)
-	make OBJS="$(OBJS_BONUS)" all
-
+#
+#bonus : $(OBJS_BONUS)
+#	make OBJS="$(OBJS_BONUS)" all
+#
 #run : bonus
 #	gcc libftprintf.a main.c
 #	./a.out
 
-.PHONY : all clean fclean re bonus
+.PHONY : all clean fclean re
 

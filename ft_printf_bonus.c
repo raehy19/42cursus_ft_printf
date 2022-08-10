@@ -12,9 +12,9 @@
 
 #include "ft_printf_bonus.h"
 
-int	ft_choose_functions(int i, va_list ap)
+int	ft_choose_functions(int i, va_list ap, t_flag *flag)
 {
-	int	(*functions[8])(va_list);
+	int	(*functions[8])(va_list, t_flag *);
 
 	functions[0] = ft_type_character;
 	functions[1] = ft_type_string;
@@ -24,7 +24,7 @@ int	ft_choose_functions(int i, va_list ap)
 	functions[5] = ft_type_hex_lower;
 	functions[6] = ft_type_hex_upper;
 	functions[7] = ft_type_pointer;
-	return (functions[i](ap));
+	return (functions[i](ap, flag));
 }
 
 int	ft_parsing(const char *input, int *i, va_list ap)
@@ -47,10 +47,12 @@ int	ft_parsing(const char *input, int *i, va_list ap)
 			flag.display_sign = 2;
 		else if (*(input + (*i)) == '#')
 			flag.display_zero_x = 1;
+		else if (ft_isdigit(*(input + (*i))))
+			ft_check_min_width(&flag, input, i);
 		else
 			return (write(1, input + (*i), 1));
 	}
-	return (ft_choose_functions(flag.type, ap));
+	return (ft_choose_functions(flag.type, ap, &flag));
 }
 
 int	ft_check_format(const char *input, int *i, int *print_size, va_list ap)
@@ -59,7 +61,7 @@ int	ft_check_format(const char *input, int *i, int *print_size, va_list ap)
 
 	if (*(input + (*i)) == '%')
 	{
-		write_size = ft_parsing(input, &i, ap);
+		write_size = ft_parsing(input, i, ap);
 		if (write_size < 0)
 		{
 			*(print_size) = -1;

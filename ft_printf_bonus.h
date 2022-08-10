@@ -29,9 +29,16 @@ typedef struct s_flag
 	int	display_zero_x;
 }	t_flag;
 
-int	ft_printf(const char *input, ...);
-
 void	ft_check_type(t_flag *flag, char c);
 void	ft_check_precision(t_flag *flag, const char *input, int *i);
+void	ft_check_min_width(t_flag *flag, const char *input, int *i);
+
+int		ft_type_character(va_list ap, t_flag *flag);
+int		ft_type_string(va_list ap, t_flag *flag);
+int		ft_type_int(va_list ap, t_flag *flag);
+int		ft_type_unsigned_int(va_list ap, t_flag *flag);
+int		ft_type_hex_lower(va_list ap, t_flag *flag);
+int		ft_type_hex_upper(va_list ap, t_flag *flag);
+int		ft_type_pointer(va_list ap, t_flag *flag);
 
 #endif
