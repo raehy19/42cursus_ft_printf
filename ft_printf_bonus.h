@@ -13,32 +13,25 @@
 #ifndef FT_PRINTF_BONUS_H
 # define FT_PRINTF_BONUS_H
 
-typedef struct s_flag
-{
-	int	type;
-	int	display_sign;
-	int	align_left;
-	int	min_width;
-	int	precision;
-	int	fill_zero;
-	int	display_zero_x;
-}	t_flag;
-
 # include "stdarg.h"
 # include "stdlib.h"
 # include "unistd.h"
 # include "libft/libft.h"
 
+typedef struct s_flag
+{
+	int	type;
+	int	min_width;
+	int	precision;
+	int	display_sign;
+	int	align_left;
+	int	fill_zero;
+	int	display_zero_x;
+}	t_flag;
+
 int	ft_printf(const char *input, ...);
 
-int	ft_check_type(const char c, va_list ap);
-int	ft_choose_functions(int i, va_list ap);
-int	ft_type_character(va_list ap);
-int	ft_type_string(va_list ap);
-int	ft_type_int(va_list ap);
-int	ft_type_unsigned_int(va_list ap);
-int	ft_type_hex_lower(va_list ap);
-int	ft_type_hex_upper(va_list ap);
-int	ft_type_pointer(va_list ap);
+void	ft_check_type(t_flag *flag, char c);
+void	ft_check_precision(t_flag *flag, const char *input, int *i);
 
 #endif

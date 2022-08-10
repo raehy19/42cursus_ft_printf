@@ -27,44 +27,55 @@ int	ft_choose_functions(int i, va_list ap)
 	return (functions[i](ap));
 }
 
-int	ft_type_check(char c)
-{
-	const char	*types = "csdiuxXp";
-	int			i;
-
-	i = -1;
-	while (++i < 8)
-		if (*(types + i) == c)
-			return (i);
-	return (-1);
-}
-
-int	ft_option_check(char c)
-{
-	const char	*options = "-0. +#";
-	int			i;
-
-	i = -1;
-	while (++i < 6)
-		if (*(options + i) == c)
-			return (i);
-	return (-1);
-}
-
-int	ft_flag(const char *input, int *i, va_list ap, int *print_size)
+int	ft_parsing(const char *input, int *i, va_list ap)
 {
 	t_flag	flag;
 
-	flag = (t_flag) {-1, 0, 0, 0, 0, 0, 0};
-	if (*(input + (++(*i))) == '%')
-		*(print_size) += write(1, "%", 1);
+	flag = (t_flag){-1, 0, 0, 0, 0, 0, 0};
+	while (*(input + (++(*i))) != '\0' || flag.type != -1)
+	{
+		ft_check_type(&flag, *(input + (*i)));
+		if (*(input + (*i)) == '-')
+			;
+		else if (*(input + (*i)) == '0')
+			flag.fill_zero = 1;
+		else if (*(input + (*i)) == '.')
+			ft_check_precision(&flag, input, i);
+		else if (*(input + (*i)) == '+')
+			flag.display_sign = 1;
+		else if (*(input + (*i)) == ' ')
+			flag.display_sign = 2;
+		else if (*(input + (*i)) == '#')
+			flag.display_zero_x = 1;
+		else
+			return (write(1, input + (*i), 1));
+	}
+	return (ft_choose_functions(flag.type, ap));
+}
+
+int	ft_check_format(const char *input, int *i, int *print_size, va_list ap)
+{
+	int	write_size;
+
+	if (*(input + (*i)) == '%')
+	{
+		write_size = ft_parsing(input, &i, ap);
+		if (write_size < 0)
+		{
+			*(print_size) = -1;
+			return (-1);
+		}
+		*(print_size) += write_size;
+	}
 	else
 	{
-		while (*(input + (++(*i))) != '\0')
+		write_size = write(1, input + (*i), 1);
+		if (write_size < 0)
 		{
-			if (ft_type_check(*(input + (*i))) > -1)
-				;
+			*(print_size) = -1;
+			return (-1);
 		}
+		*(print_size) += write_size;
 	}
 	return (0);
 }
@@ -79,14 +90,8 @@ int	ft_printf(const char *input, ...)
 	print_size = 0;
 	i = -1;
 	while (*(input + (++i)) != '\0')
-	{
-		if (*(input + i) == '%')
-		{
-			ft_flag(input, &i, ap, &print_size);
-		}
-		else
-			print_size += write(1, input + i, 1);
-	}
+		if (ft_check_format(input, &i, &print_size, ap) < 0)
+			break ;
 	va_end(ap);
 	return (print_size);
 }
