@@ -18,12 +18,20 @@ AR := ar
 ARFLAG := crs
 LIBFT_DIR := libft
 
-SRCS := \
+SRCS = \
 	ft_printf.c \
 	ft_printf_functions_1.c \
 	ft_printf_functions_2.c \
 
+SRCS_BONUS = \
+	ft_printf_bonus.c \
+	ft_printf_functions_1_bonus.c \
+	ft_printf_functions_2_bonus.c \
+	ft_printf_parse_functions_bonus.c \
+
 OBJS = $(SRCS:.c=.o)
+
+OBJS_BONUS = $(SRCS_BONUS:.c=.o)
 
 all : $(NAME)
 
@@ -36,8 +44,8 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	make -C $(LIBFT_DIR) clean
 	$(RM) $(OBJS)
+	$(RM) $(OBJS_BONUS)
 
 fclean : clean
 	make -C $(LIBFT_DIR) fclean
@@ -46,9 +54,12 @@ fclean : clean
 re : fclean
 	make all
 
-run : all
-	gcc libftprintf.a main.c
-	./a.out
+bonus : $(OBJS_BONUS)
+	make OBJS="$(OBJS_BONUS)" all
 
-.PHONY : all clean fclean re
+#run : bonus
+#	gcc libftprintf.a main.c
+#	./a.out
+
+.PHONY : all clean fclean re bonus
 

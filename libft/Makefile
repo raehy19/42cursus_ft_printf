@@ -23,7 +23,6 @@ SRCS := \
 	ft_long_to_ascii.c \
 	ft_unsigned_long_to_ascii.c \
 	ft_unsigned_hex_to_ascii.c \
-	ft_isprint.c \
 	ft_isdigit.c \
 
 OBJS = $(SRCS:.c=.o)

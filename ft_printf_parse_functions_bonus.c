@@ -39,3 +39,17 @@ void	ft_check_precision(t_flag *flag, const char *input, int *i)
 	flag->precision = temp;
 	return ;
 }
+
+void	ft_check_min_width(t_flag *flag, const char *input, int *i)
+{
+	int	temp;
+
+	temp = 0;
+	while (ft_isdigit(*(input + (*i))))
+	{
+		temp = temp * 10 + (*(input + (*i)) - '0');
+		++i;
+	}
+	flag->min_width = temp;
+	return ;
+}
