@@ -41,36 +41,45 @@ int	ft_check_type(const char c, va_list ap)
 	return (write(1, &c, 1));
 }
 
+int	ft_check_format(const char *input, int *i, int *print_size, va_list ap)
+{
+	int	write_size;
+
+	if (*(input + (*i)) == '%')
+	{
+		write_size = ft_check_type(*(input + (++(*i))), ap);
+		if (write_size < 0)
+		{
+			*(print_size) = -1;
+			return (-1);
+		}
+		*(print_size) += write_size;
+	}
+	else
+	{
+		write_size = write(1, input + (*i), 1);
+		if (write_size < 0)
+		{
+			*(print_size) = -1;
+			return (-1);
+		}
+		*(print_size) += write_size;
+	}
+	return (0);
+}
+
 int	ft_printf(const char *input, ...)
 {
 	va_list	ap;
 	int		print_size;
 	int		i;
-	int		temp;
 
 	va_start(ap, input);
 	print_size = 0;
 	i = -1;
 	while (*(input + (++i)) != '\0')
-	{
-		if (*(input + i) == '%')
-		{
-			temp = ft_check_type(*(input + (++i)), ap);
-			if (temp < 0)
-			{
-				va_end(ap);
-				return (-1);
-			}
-			print_size += temp;
-		}
-		else
-		{
-			temp = write(1, input + i, 1);
-			if (temp < 0)
-				return (-1);
-			print_size += temp;
-		}
-	}
+		if (ft_check_format(input, &i, &print_size, ap) < 0)
+			break ;
 	va_end(ap);
 	return (print_size);
 }

@@ -55,7 +55,10 @@ int	ft_type_pointer(va_list ap)
 		return (-1);
 	size_1 = write (1, "0x", 2);
 	if (size_1 < 0)
+	{
+		free(str);
 		return (-1);
+	}
 	size_2 = write(1, str, ft_strlen(str));
 	free(str);
 	if (size_2 < 0)
