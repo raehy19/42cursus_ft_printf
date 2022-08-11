@@ -17,7 +17,7 @@ RM := rm -f
 AR := ar
 ARFLAG := crs
 
-SRCS := \
+LIBFT_SRCS := \
 	ft_strlen.c \
 	ft_strrev.c \
 	ft_long_to_ascii.c \
@@ -25,18 +25,18 @@ SRCS := \
 	ft_unsigned_hex_to_ascii.c \
 	ft_isdigit.c \
 
-OBJS = $(SRCS:.c=.o)
+LIBFT_OBJS = $(LIBFT_SRCS:.c=.o)
 
 all : $(NAME)
 
-$(NAME) : $(OBJS)
+$(NAME) : $(LIBFT_OBJS)
 	$(AR) $(ARFLAG) $@ $^
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean :
-	$(RM) $(OBJS)
+	$(RM) $(LIBFT_OBJS)
 
 fclean : clean
 	$(RM) $(NAME)
