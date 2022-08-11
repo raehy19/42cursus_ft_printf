@@ -53,7 +53,7 @@ clean :
 	$(RM) $(PRINTF_OBJS_BONUS)
 
 fclean : clean
-	make -C $(LIBFT_DIR) fclean
+	$(RM) $(BONUS_NAME)
 	$(RM) $(NAME)
 
 re : fclean
