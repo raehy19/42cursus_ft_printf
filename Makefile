@@ -11,6 +11,8 @@
 # **************************************************************************** #
 
 NAME := libftprintf.a
+BONUS_NAME := libftprintf_bonus.a
+LIBFT := ./libft/libft.a
 CC := cc
 CFLAGS := -Wall -Wextra -Werror
 RM := rm -f
@@ -29,23 +31,26 @@ PRINTF_SRCS_BONUS := \
 	ft_printf_functions_2_bonus.c \
 	ft_printf_parse_functions_bonus.c
 
-OBJS := $(PRINTF_SRCS:.c=.o)
+PRINTF_OBJS := $(PRINTF_SRCS:.c=.o)
 
-OBJS_BONUS := $(PRINTF_SRCS_BONUS:.c=.o)
+PRINTF_OBJS_BONUS := $(PRINTF_SRCS_BONUS:.c=.o)
 
-all : $(NAME)
-
-$(NAME) : $(OBJS)
+$(LIBFT) :
 	make -C $(LIBFT_DIR) all
-	cp $(LIBFT_DIR)/libft.a ./$(NAME)
+
+$(NAME) : $(LIBFT) $(PRINTF_OBJS)
+	cp $(LIBFT) ./$(NAME)
 	$(AR) $(ARFLAG) $@ $^
 
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+all : $(NAME)
+
 clean :
-	$(RM) $(OBJS)
-	$(RM) $(OBJS_BONUS)
+	make -C $(LIBFT_DIR) clean
+	$(RM) $(PRINTF_OBJS)
+	$(RM) $(PRINTF_OBJS_BONUS)
 
 fclean : clean
 	make -C $(LIBFT_DIR) fclean
@@ -54,12 +59,16 @@ fclean : clean
 re : fclean
 	make all
 
-bonus : $(OBJS_BONUS)
-	make OBJS="$(OBJS_BONUS)" all
+bonus : $(BONUS_NAME)
 
-run : bonus
-	gcc libftprintf.a main.c
-	./a.out
+$(BONUS_NAME) : $(LIBFT) $(PRINTF_OBJS_BONUS)
+	cp $(LIBFT) ./$(BONUS_NAME)
+	$(AR) $(ARFLAG) $@ $^
+	cp $(BONUS_NAME) ./$(NAME)
+
+#run : bonus
+#	gcc libftprintf.a main.c
+#	./a.out
 
 .PHONY : all bonus clean fclean re
 
