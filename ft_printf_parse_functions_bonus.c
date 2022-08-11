@@ -48,8 +48,9 @@ void	ft_check_min_width(t_flag *flag, const char *input, int *i)
 	while (ft_isdigit(*(input + (*i))))
 	{
 		temp = temp * 10 + (*(input + (*i)) - '0');
-		++i;
+		++(*i);
 	}
 	flag->min_width = temp;
+	--(*i);
 	return ;
 }

@@ -18,6 +18,8 @@
 # include "unistd.h"
 # include "libft/libft.h"
 
+#include "stdio.h"
+
 typedef struct s_flag
 {
 	int	type;
@@ -28,6 +30,8 @@ typedef struct s_flag
 	int	fill_zero;
 	int	display_zero_x;
 }	t_flag;
+
+int	ft_printf(const char *input, ...);
 
 void	ft_check_type(t_flag *flag, char c);
 void	ft_check_precision(t_flag *flag, const char *input, int *i);

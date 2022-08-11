@@ -12,6 +12,7 @@
 
 #include "ft_printf_bonus.h"
 
+
 int	ft_choose_functions(int i, va_list ap, t_flag *flag)
 {
 	int	(*functions[8])(va_list, t_flag *);
@@ -32,9 +33,9 @@ int	ft_parsing(const char *input, int *i, va_list ap)
 	t_flag	flag;
 
 	flag = (t_flag){-1, 0, 0, 0, 0, 0, 0};
-	while (*(input + (++(*i))) != '\0' || flag.type != -1)
+	while (flag.type == -1 && *(input + (++(*i))) != '\0')
 	{
-		ft_check_type(&flag, *(input + (*i)));
+//		printf("options : %d %d %d %d %d %d %d\ni : %d\n", flag.type, flag.min_width, flag.precision, flag.display_sign, flag.align_left, flag.fill_zero, flag.display_zero_x, *i);
 		if (*(input + (*i)) == '-')
 			;
 		else if (*(input + (*i)) == '0')
@@ -50,8 +51,9 @@ int	ft_parsing(const char *input, int *i, va_list ap)
 		else if (ft_isdigit(*(input + (*i))))
 			ft_check_min_width(&flag, input, i);
 		else
-			return (write(1, input + (*i), 1));
+			ft_check_type(&flag, *(input + (*i)));
 	}
+//	printf("options : %d %d %d %d %d %d %d\ni : %d\n", flag.type, flag.min_width, flag.precision, flag.display_sign, flag.align_left, flag.fill_zero, flag.display_zero_x, *i);
 	return (ft_choose_functions(flag.type, ap, &flag));
 }
 

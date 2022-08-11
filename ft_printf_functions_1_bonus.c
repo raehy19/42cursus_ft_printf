@@ -26,7 +26,7 @@ int	ft_type_character(va_list ap, t_flag *flag)
 	write_size = write(1, &c, 1);
 	if (write_size < 0)
 		return (-1);
-	return (i + write_size);
+	return (i + write_size - 1);
 }
 
 int	ft_type_string(va_list ap, t_flag *flag)
@@ -43,22 +43,19 @@ int	ft_type_string(va_list ap, t_flag *flag)
 	len = ft_strlen(str);
 	if (flag->precision < len)
 		len = flag->precision;
-	if (len < flag->min_width)
+	if (flag->align_left == 1)
 	{
-		if (flag->align_left == 1)
-		{
-			write_size = write(1, str, len);
-			while (len + (++i) < flag->min_width)
-				if (write(1, " ", 1) < 0)
-					return (-1);
-		}
-		else
-		{
-			while (len + (++i) < flag->min_width)
-				if (write(1, " ", 1) < 0)
-					return (-1);
-			write_size = write(1, str, len);
-		}
+		write_size = write(1, str, len);
+		while (len + (++i) < flag->min_width)
+			if (write(1, " ", 1) < 0)
+				return (-1);
+	}
+	else
+	{
+		while (len + (++i) < flag->min_width)
+			if (write(1, " ", 1) < 0)
+				return (-1);
+		write_size = write(1, str, len);
 	}
 	if (write_size < 0)
 		return (-1);
