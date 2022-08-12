@@ -54,6 +54,7 @@ clean :
 	$(RM) $(PRINTF_OBJS_BONUS)
 
 fclean : clean
+	$(RM) $(LIBFT)
 	$(RM) $(BONUS_NAME)
 	$(RM) $(NAME)
 

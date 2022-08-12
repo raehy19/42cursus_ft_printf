@@ -31,7 +31,7 @@ int	ft_parsing(const char *input, int *i, va_list ap)
 {
 	t_flag	flag;
 
-	flag = (t_flag){-1, 0, 0, 0, 0, 0, 0};
+	flag = (t_flag){-1, 0, -1, 0, 0, 0, 0};
 	while (flag.type == -1 && *(input + (++(*i))) != '\0')
 	{
 		if (*(input + (*i)) == '%')
@@ -53,7 +53,6 @@ int	ft_parsing(const char *input, int *i, va_list ap)
 		else
 			ft_check_type(&flag, *(input + (*i)));
 	}
-//	printf("options : %d %d %d %d %d %d %d\n", flag.type, flag.min_width, flag.precision, flag.display_sign, flag.align_left, flag.fill_zero, flag.display_zero_x);
 	return (ft_choose_functions(flag.type, ap, &flag));
 }
 

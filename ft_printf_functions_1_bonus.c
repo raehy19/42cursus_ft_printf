@@ -49,27 +49,23 @@ int	ft_type_character(va_list ap, t_flag *flag)
 
 int	ft_type_string(va_list ap, t_flag *flag)
 {
-	char	*str;
-	int		i;
-	int		len;
+	const char	*null_str = "(null)";
+	char		*str;
+	int			len;
 
 	str = (char *) va_arg(ap, char *);
 	if (!str)
-		return (write(1, "(null)", 6));
+		str = (char *) null_str;
 	len = ft_strlen(str);
-	if (flag->precision > 0 && flag->precision < len)
+	if (flag->precision > -1 && flag->precision < len)
 		len = flag->precision;
-	i = -1;
-	while (flag->align_left == 0 && ++i < flag->min_width - len)
-		if (write(1, " ", 1) < 0)
+	if (flag->align_left == 0)
+		if (ft_print_space(flag, flag->min_width - len) < 0)
 			return (-1);
-	i = -1;
-	while (++i < len)
-		if (write(1, str + i, 1) < 0)
-			return (-1);
-	i = -1;
-	while (flag->align_left == 1 && ++i < flag->min_width - len)
-		if (write(1, " ", 1) < 0)
+	if (write(1, str, len) < 0)
+		return (-1);
+	if (flag->align_left == 1)
+		if (ft_print_space(flag, flag->min_width - len) < 0)
 			return (-1);
 	if (flag->min_width > len)
 		return (flag->min_width);

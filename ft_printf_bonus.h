@@ -18,7 +18,7 @@
 # include "unistd.h"
 # include "libft/libft.h"
 
-#include "stdio.h"
+# include "stdio.h" // debug 용
 
 typedef struct s_flag
 {
@@ -31,13 +31,13 @@ typedef struct s_flag
 	int	display_zero_x;
 }	t_flag;
 
-int	ft_printf(const char *input, ...);
+int		ft_printf(const char *input, ...);
 
 void	ft_check_type(t_flag *flag, char c);
 void	ft_check_precision(t_flag *flag, const char *input, int *i);
 void	ft_check_min_width(t_flag *flag, const char *input, int *i);
 
-int	ft_print_space(t_flag *flag, int count);
+int		ft_print_space(t_flag *flag, int count);
 
 int		ft_type_percent(t_flag *flag);
 int		ft_type_character(va_list ap, t_flag *flag);
