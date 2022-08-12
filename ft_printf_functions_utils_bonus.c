@@ -12,13 +12,13 @@
 
 #include "ft_printf_bonus.h"
 
-int	ft_print_space(t_flag *flag, int count)
+int	ft_print_space(int is_zero, int count)
 {
 	char	space;
 	int		i;
 
 	space = ' ';
-	if (flag->fill_zero == 1)
+	if (is_zero == 1)
 		space = '0';
 	i = -1;
 	while (++i < count)
