@@ -14,42 +14,37 @@
 
 int	ft_type_percent(t_flag *flag)
 {
-	char	space;
-	int		i;
+	int		write_size;
 
-	i = 0;
-	space = ' ';
-	if (flag->fill_zero == 1)
-		space = '0';
-	if (flag->align_left == 1)
-		if (write(1, "%", 1) < 0)
-			return (-1);
-	while (++i < flag->min_width)
-		if (write(1, &space, 1) < 0)
-			return (-1);
+	write_size = 0;
 	if (flag->align_left == 0)
-		if (write(1, "%", 1) < 0)
-			return (-1);
-	return (i);
+		write_size = ft_print_space(flag, flag->min_width - 1);
+	if (write(1, "%", 1) < 0)
+		return (-1);
+	if (flag->align_left == 1)
+		write_size = ft_print_space(flag, flag->min_width - 1);
+	if (write_size < 0)
+		return (-1);
+	return (write_size + 1);
 }
 
 int	ft_type_character(va_list ap, t_flag *flag)
 {
 	char	c;
-	int		i;
+	int		write_size;
 
-	i = 0;
+	flag->fill_zero = 0;
 	c = (char) va_arg(ap, int);
-	if (flag->align_left == 1)
-		if (write(1, &c, 1) < 0)
-			return (-1);
-	while (++i < flag->min_width)
-		if (write(1, " ", 1) < 0)
-			return (-1);
+	write_size = 0;
 	if (flag->align_left == 0)
-		if (write(1, &c, 1) < 0)
-			return (-1);
-	return (i);
+		write_size = ft_print_space(flag, flag->min_width - 1);
+	if (write(1, &c, 1) < 0)
+		return (-1);
+	if (flag->align_left == 1)
+		write_size = ft_print_space(flag, flag->min_width - 1);
+	if (write_size < 0)
+		return (-1);
+	return (write_size + 1);
 }
 
 int	ft_type_string(va_list ap, t_flag *flag)

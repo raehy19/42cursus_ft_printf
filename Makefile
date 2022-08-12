@@ -29,7 +29,8 @@ PRINTF_SRCS_BONUS := \
 	ft_printf_bonus.c \
 	ft_printf_functions_1_bonus.c \
 	ft_printf_functions_2_bonus.c \
-	ft_printf_parse_functions_bonus.c
+	ft_printf_parse_functions_bonus.c \
+	ft_printf_functions_utils_bonus.c
 
 PRINTF_OBJS := $(PRINTF_SRCS:.c=.o)
 
@@ -66,9 +67,9 @@ $(BONUS_NAME) : $(LIBFT) $(PRINTF_OBJS_BONUS)
 	$(AR) $(ARFLAG) $@ $^
 	cp $(BONUS_NAME) ./$(NAME)
 
-#run : bonus
-#	gcc libftprintf.a main.c
-#	./a.out
+run : bonus
+	gcc libftprintf.a main.c
+	./a.out
 
 .PHONY : all bonus clean fclean re
 
