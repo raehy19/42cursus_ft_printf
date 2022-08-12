@@ -12,54 +12,73 @@
 
 #include "ft_printf_bonus.h"
 
-int	ft_type_character(va_list ap, t_flag *flag)
+int	ft_type_percent(t_flag *flag)
 {
-	char	c;
-	int		write_size;
+	char	space;
 	int		i;
 
 	i = 0;
+	space = ' ';
+	if (flag->fill_zero == 1)
+		space = '0';
+	if (flag->align_left == 1)
+		if (write(1, "%", 1) < 0)
+			return (-1);
+	while (++i < flag->min_width)
+		if (write(1, &space, 1) < 0)
+			return (-1);
+	if (flag->align_left == 0)
+		if (write(1, "%", 1) < 0)
+			return (-1);
+	return (i);
+}
+
+int	ft_type_character(va_list ap, t_flag *flag)
+{
+	char	c;
+	int		i;
+
+	i = 0;
+	c = (char) va_arg(ap, int);
+	if (flag->align_left == 1)
+		if (write(1, &c, 1) < 0)
+			return (-1);
 	while (++i < flag->min_width)
 		if (write(1, " ", 1) < 0)
 			return (-1);
-	c = (char) va_arg(ap, int);
-	write_size = write(1, &c, 1);
-	if (write_size < 0)
-		return (-1);
-	return (i + write_size - 1);
+	if (flag->align_left == 0)
+		if (write(1, &c, 1) < 0)
+			return (-1);
+	return (i);
 }
 
 int	ft_type_string(va_list ap, t_flag *flag)
 {
 	char	*str;
-	int		write_size;
 	int		i;
 	int		len;
 
-	i = -1;
 	str = (char *) va_arg(ap, char *);
 	if (!str)
 		return (write(1, "(null)", 6));
 	len = ft_strlen(str);
-	if (flag->precision < len)
+	if (flag->precision > 0 && flag->precision < len)
 		len = flag->precision;
-	if (flag->align_left == 1)
-	{
-		write_size = write(1, str, len);
-		while (len + (++i) < flag->min_width)
-			if (write(1, " ", 1) < 0)
-				return (-1);
-	}
-	else
-	{
-		while (len + (++i) < flag->min_width)
-			if (write(1, " ", 1) < 0)
-				return (-1);
-		write_size = write(1, str, len);
-	}
-	if (write_size < 0)
-		return (-1);
-	return (i + write_size);
+	i = -1;
+	while (flag->align_left == 0 && ++i < flag->min_width - len)
+		if (write(1, " ", 1) < 0)
+			return (-1);
+	i = -1;
+	while (++i < len)
+		if (write(1, str + i, 1) < 0)
+			return (-1);
+	i = -1;
+	while (flag->align_left == 1 && ++i < flag->min_width - len)
+		if (write(1, " ", 1) < 0)
+			return (-1);
+	if (flag->min_width > len)
+		return (flag->min_width);
+	return (len);
 }
 
 int	ft_type_int(va_list ap, t_flag *flag)
