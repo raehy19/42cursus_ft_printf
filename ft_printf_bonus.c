@@ -12,7 +12,6 @@
 
 #include "ft_printf_bonus.h"
 
-
 int	ft_choose_functions(int i, va_list ap, t_flag *flag)
 {
 	int	(*functions[8])(va_list, t_flag *);
@@ -35,9 +34,10 @@ int	ft_parsing(const char *input, int *i, va_list ap)
 	flag = (t_flag){-1, 0, 0, 0, 0, 0, 0};
 	while (flag.type == -1 && *(input + (++(*i))) != '\0')
 	{
-//		printf("options : %d %d %d %d %d %d %d\ni : %d\n", flag.type, flag.min_width, flag.precision, flag.display_sign, flag.align_left, flag.fill_zero, flag.display_zero_x, *i);
-		if (*(input + (*i)) == '-')
-			;
+		if (*(input + (*i)) == '%')
+			return (ft_type_percent(&flag));
+		else if (*(input + (*i)) == '-')
+			flag.align_left = 1;
 		else if (*(input + (*i)) == '0')
 			flag.fill_zero = 1;
 		else if (*(input + (*i)) == '.')
@@ -53,7 +53,7 @@ int	ft_parsing(const char *input, int *i, va_list ap)
 		else
 			ft_check_type(&flag, *(input + (*i)));
 	}
-//	printf("options : %d %d %d %d %d %d %d\ni : %d\n", flag.type, flag.min_width, flag.precision, flag.display_sign, flag.align_left, flag.fill_zero, flag.display_zero_x, *i);
+//	printf("options : %d %d %d %d %d %d %d\n", flag.type, flag.min_width, flag.precision, flag.display_sign, flag.align_left, flag.fill_zero, flag.display_zero_x);
 	return (ft_choose_functions(flag.type, ap, &flag));
 }
 

@@ -34,9 +34,10 @@ void	ft_check_precision(t_flag *flag, const char *input, int *i)
 	while (ft_isdigit(*(input + (*i))))
 	{
 		temp = temp * 10 + (*(input + (*i)) - '0');
-		++i;
+		++(*i);
 	}
 	flag->precision = temp;
+	--(*i);
 	return ;
 }
 
