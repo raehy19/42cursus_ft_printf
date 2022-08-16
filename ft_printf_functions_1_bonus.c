@@ -101,22 +101,6 @@ int	ft_type_int(va_list ap, t_flag *flag)
 	return (len);
 }
 
-int	ft_type_unsigned_int(va_list ap, t_flag *flag)
-{
-	unsigned long long	n;
-	char				*str;
-	int					size;
-
-	if (!flag)
-		return (0);
-	n = (unsigned long long) va_arg(ap, unsigned int);
-	str = ft_unsigned_long_to_ascii(n);
-	if (!str)
-		return (-1);
-	size = write(1, str, ft_strlen(str));
-	free(str);
-	return (size);
-}
 
 int	ft_print_num_minus(char *str, int len, t_flag *flag)
 {

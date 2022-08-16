@@ -37,8 +37,10 @@ void	ft_check_type(t_flag *flag, char c);
 void	ft_check_precision(t_flag *flag, const char *input, int *i);
 void	ft_check_min_width(t_flag *flag, const char *input, int *i);
 
-int		ft_print_space(int is_zero, int count);
 int		ft_free_n_return(void *p, int value);
+int		ft_print_space(int is_zero, int count);
+int		ft_print_unsigned(char *str, int len, t_flag *flag);
+int		ft_print_pointer(char *str, int len, t_flag *flag, char *zero_x);
 
 int		ft_print_num_minus(char *str, int len, t_flag *flag);
 int		ft_print_num_plus(char *str, int len, t_flag *flag);

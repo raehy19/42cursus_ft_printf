@@ -12,6 +12,12 @@
 
 #include "ft_printf_bonus.h"
 
+int	ft_free_n_return(void *p, int value)
+{
+	free (p);
+	return (value);
+}
+
 int	ft_print_space(int is_zero, int count)
 {
 	char	space;
@@ -29,8 +35,41 @@ int	ft_print_space(int is_zero, int count)
 	return (0);
 }
 
-int	ft_free_n_return(void *p, int value)
+int	ft_print_unsigned(char *str, int len, t_flag *flag)
 {
-	free (p);
-	return (value);
+	if (flag->precision > len)
+		len = flag->precision;
+	if (flag->align_left == 0)
+		if (ft_print_space(flag->fill_zero, flag->min_width - len) < 0)
+			return (ft_free_n_return(str, -1));
+	if (ft_print_space(1, flag->precision - (ft_strlen(str))) < 0)
+		return (ft_free_n_return(str, -1));
+	if (write(1, str, ft_strlen(str)) < 0)
+		return (ft_free_n_return(str, -1));
+	if (flag->align_left == 1)
+		if (ft_print_space(0, flag->min_width - len) < 0)
+			return (ft_free_n_return(str, -1));
+	return (ft_free_n_return(str, ft_max(flag->min_width, len)));
+}
+
+int	ft_print_pointer(char *str, int len, t_flag *flag, char *zero_x)
+{
+	if (flag->precision > len)
+		len = flag->precision;
+	if (flag->align_left == 0 && flag->fill_zero == 0)
+		if (ft_print_space(flag->fill_zero, flag->min_width - len - 2) < 0)
+			return (ft_free_n_return(str, -1));
+	if (write (1, zero_x, 2) < 0)
+		return (ft_free_n_return(str, -1));
+	if (flag->align_left == 0 && flag->fill_zero == 1)
+		if (ft_print_space(flag->fill_zero, flag->min_width - len - 2) < 0)
+			return (ft_free_n_return(str, -1));
+	if (ft_print_space(1, flag->precision - (ft_strlen(str))) < 0)
+		return (ft_free_n_return(str, -1));
+	if (write(1, str, ft_strlen(str)) < 0)
+		return (ft_free_n_return(str, -1));
+	if (flag->align_left == 1)
+		if (ft_print_space(0, flag->min_width - len - 2) < 0)
+			return (ft_free_n_return(str, -1));
+	return (ft_free_n_return(str, ft_max(flag->min_width, len + 2)));
 }
