@@ -12,38 +12,91 @@
 
 #include "ft_printf_bonus.h"
 
+
+int	ft_print_hex(char *str, int len, t_flag *flag)
+{
+	if (flag->precision > len)
+		len = flag->precision;
+	if (flag->align_left == 0)
+		if (ft_print_space(flag->fill_zero, flag->min_width - len) < 0)
+			return (ft_free_n_return(str, -1));
+	if (ft_print_space(1, flag->precision - (ft_strlen(str))) < 0)
+		return (ft_free_n_return(str, -1));
+	if (write(1, str, ft_strlen(str)) < 0)
+		return (ft_free_n_return(str, -1));
+	if (flag->align_left == 1)
+		if (ft_print_space(0, flag->min_width - len) < 0)
+			return (ft_free_n_return(str, -1));
+	return (ft_free_n_return(str, ft_max(flag->min_width, len)));
+}
+
+int	ft_print_pointer(char *str, int len, t_flag *flag, char *zero_x)
+{
+	if (flag->precision > len)
+		len = flag->precision;
+	if (flag->align_left == 0)
+		if (ft_print_space(flag->fill_zero, flag->min_width - len - 2) < 0)
+			return (ft_free_n_return(str, -1));
+	if (write (1, zero_x, 2) < 0)
+		return (ft_free_n_return(str, -1));
+	if (ft_print_space(1, flag->precision - (ft_strlen(str))) < 0)
+		return (ft_free_n_return(str, -1));
+	if (write(1, str, ft_strlen(str)) < 0)
+		return (ft_free_n_return(str, -1));
+	if (flag->align_left == 1)
+		if (ft_print_space(0, flag->min_width - len - 2) < 0)
+			return (ft_free_n_return(str, -1));
+	return (ft_free_n_return(str, ft_max(flag->min_width, len + 2)));
+}
+
 int	ft_type_hex_lower(va_list ap, t_flag *flag)
 {
 	unsigned long long	n;
 	char				*str;
-	int					size;
+	int					len;
 
-	if (!flag)
-		return (0);
 	n = (unsigned long long) va_arg(ap, unsigned int);
 	str = ft_unsigned_hex_to_ascii(n, 'a');
 	if (!str)
 		return (-1);
-	size = write(1, str, ft_strlen(str));
-	free(str);
-	return (size);
+	if (flag->precision == 0 && *str == '0')
+	{
+		if (flag->min_width > 0)
+			return (ft_print_space(0, flag->min_width));
+		else
+			return (0);
+	}
+	if (flag->precision > -1)
+		flag->fill_zero = 0;
+	len = ft_strlen(str);
+	if (flag->display_zero_x == 1 && *(str) != '0')
+		return (ft_print_pointer(str, len, flag, "0x"));
+	return (ft_print_hex(str, len, flag));
 }
 
 int	ft_type_hex_upper(va_list ap, t_flag *flag)
 {
 	unsigned long long	n;
 	char				*str;
-	int					size;
+	int					len;
 
-	if (!flag)
-		return (0);
 	n = (unsigned long long) va_arg(ap, unsigned int);
 	str = ft_unsigned_hex_to_ascii(n, 'A');
 	if (!str)
 		return (-1);
-	size = write(1, str, ft_strlen(str));
-	free(str);
-	return (size);
+	if (flag->precision == 0 && *str == '0')
+	{
+		if (flag->min_width > 0)
+			return (ft_print_space(0, flag->min_width));
+		else
+			return (0);
+	}
+	if (flag->precision > -1)
+		flag->fill_zero = 0;
+	len = ft_strlen(str);
+	if (flag->display_zero_x == 1 && *(str) != '0')
+		return (ft_print_pointer(str, len, flag, "0X"));
+	return (ft_print_hex(str, len, flag));
 }
 
 int	ft_type_pointer(va_list ap, t_flag *flag)
@@ -57,19 +110,5 @@ int	ft_type_pointer(va_list ap, t_flag *flag)
 	if (!str)
 		return (-1);
 	len = ft_strlen(str);
-	if (flag->precision > len)
-		len = flag->precision;
-	if (flag->align_left == 0)
-		if (ft_print_space(flag->fill_zero, flag->min_width - len - 2) < 0)
-			return (ft_free_n_return(str, -1));
-	if (write (1, "0x", 2) < 0)
-		return (ft_free_n_return(str, -1));
-	if (ft_print_space(1, flag->precision - (ft_strlen(str))) < 0)
-		return (ft_free_n_return(str, -1));
-	if (write(1, str, ft_strlen(str)) < 0)
-		return (ft_free_n_return(str, -1));
-	if (flag->align_left == 1)
-		if (ft_print_space(0, flag->min_width - len - 2) < 0)
-			return (ft_free_n_return(str, -1));
-	return (ft_free_n_return(str, ft_max(flag->min_width, len + 2)));
+	return (ft_print_pointer(str, len, flag, "0x"));
 }
