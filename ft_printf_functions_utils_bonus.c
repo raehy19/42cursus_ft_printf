@@ -29,15 +29,21 @@ int	ft_print_space(int is_zero, int count)
 	return (0);
 }
 
+int	ft_free_n_return(void *p, int value)
+{
+	free (p);
+	return (value);
+}
+
 int	ft_print_num_minus(char *str, int len, t_flag *flag)
 {
-	if (flag->precision < 0)
+	if (flag->fill_zero == 1)
 		if (write(1, "-", 1) < 0)
 			return (-1);
 	if (flag->align_left == 0)
-		if (ft_print_space(flag->fill_zero, flag->min_width - len - 1) < 0)
+		if (ft_print_space(flag->fill_zero, flag->min_width - len + flag->fill_zero - 1) < 0)
 			return (-1);
-	if (flag->precision > -1)
+	if (flag->fill_zero == 0)
 		if (write(1, "-", 1) < 0)
 			return (-1);
 	if (ft_print_space(1, flag->precision - (ft_strlen(str) - 1)) < 0)
