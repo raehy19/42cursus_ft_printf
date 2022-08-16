@@ -83,19 +83,14 @@ int	ft_type_int(va_list ap, t_flag *flag)
 		return (-1);
 	if (flag->precision > -1)
 		flag->fill_zero = 0;
-
 	len = ft_strlen(str);
 	if (flag->precision > len)
 		len = flag->precision;
-	if (flag->align_left == 0)
-		if (ft_print_space(flag->fill_zero, flag->min_width - len) < 0)
+	if (*(str) == '-')
+		if (ft_print_num_minus(str, len, flag))
 			return (-1);
-	if (ft_print_space(1, flag->precision - ft_strlen(str)) < 0)
-		return (-1);
-	if (write(1, str, ft_strlen(str)) < 0)
-		return (-1);
-	if (flag->align_left == 1)
-		if (ft_print_space(0, flag->min_width - len) < 0)
+	if (*(str) != '-')
+		if (ft_print_num_plus(str, len, flag))
 			return (-1);
 //	printf("\n\npre : %d / strlen : %d / space len : %d / min width : %d / len : %d\n\n", flag->precision, ft_strlen(str), flag->min_width - len, flag->min_width, len);
 	free(str);

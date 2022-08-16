@@ -38,6 +38,8 @@ void	ft_check_precision(t_flag *flag, const char *input, int *i);
 void	ft_check_min_width(t_flag *flag, const char *input, int *i);
 
 int		ft_print_space(int is_zero, int count);
+int	ft_print_num_minus(char *str, int len, t_flag *flag);
+int	ft_print_num_plus(char *str, int len, t_flag *flag);
 
 int		ft_type_percent(t_flag *flag);
 int		ft_type_character(va_list ap, t_flag *flag);
