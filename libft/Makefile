@@ -24,6 +24,7 @@ LIBFT_SRCS := \
 	ft_unsigned_long_to_ascii.c \
 	ft_unsigned_hex_to_ascii.c \
 	ft_isdigit.c \
+	ft_max.c
 
 LIBFT_OBJS = $(LIBFT_SRCS:.c=.o)
 

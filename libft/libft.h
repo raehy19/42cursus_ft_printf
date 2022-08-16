@@ -18,10 +18,11 @@
 # include "unistd.h"
 
 int		ft_strlen(const char *s);
+char	*ft_strrev(char *str, long long len);
 char	*ft_long_to_ascii(long long n);
 char	*ft_unsigned_long_to_ascii(unsigned long long n);
 char	*ft_unsigned_hex_to_ascii(unsigned long long n, char flag);
-char	*ft_strrev(char *str, long long len);
 int		ft_isdigit(int c);
+int		ft_max(int a, int b);
 
 #endif
