@@ -18,8 +18,6 @@ int	ft_type_unsigned_int(va_list ap, t_flag *flag)
 	char				*str;
 	int					len;
 
-	if (!flag)
-		return (0);
 	n = (unsigned long long) va_arg(ap, unsigned int);
 	str = ft_unsigned_long_to_ascii(n);
 	if (!str)

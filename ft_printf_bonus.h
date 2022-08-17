@@ -42,6 +42,7 @@ int		ft_print_space(int is_zero, int count);
 int		ft_print_unsigned(char *str, int len, t_flag *flag);
 int		ft_print_pointer(char *str, int len, t_flag *flag, char *zero_x);
 
+int		ft_print_precision_zero(t_flag *flag);
 int		ft_print_num_minus(char *str, int len, t_flag *flag);
 int		ft_print_num_plus(char *str, int len, t_flag *flag);
 

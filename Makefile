@@ -27,10 +27,11 @@ PRINTF_SRCS := \
 
 PRINTF_SRCS_BONUS := \
 	ft_printf_bonus.c \
+	ft_printf_parse_functions_bonus.c \
 	ft_printf_functions_1_bonus.c \
 	ft_printf_functions_2_bonus.c \
-	ft_printf_parse_functions_bonus.c \
-	ft_printf_functions_utils_bonus.c
+	ft_printf_functions_utils_1_bonus.c \
+	ft_printf_functions_utils_2_bonus.c
 
 PRINTF_OBJS := $(PRINTF_SRCS:.c=.o)
 
