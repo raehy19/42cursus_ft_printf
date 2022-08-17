@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/05 14:33:37 by rjeong            #+#    #+#             */
-/*   Updated: 2022/08/05 14:33:39 by rjeong           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:20:05 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,3 @@ int	ft_type_int(va_list ap, t_flag *flag)
 		return (ft_print_num_minus(str, len, flag));
 	return (ft_print_num_plus(str, len, flag));
 }
-

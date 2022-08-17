@@ -18,8 +18,6 @@
 # include "unistd.h"
 # include "libft/libft.h"
 
-# include "stdio.h" // debug 용
-
 typedef struct s_flag
 {
 	int	type;
@@ -50,6 +48,7 @@ int		ft_type_percent(t_flag *flag);
 int		ft_type_character(va_list ap, t_flag *flag);
 int		ft_type_string(va_list ap, t_flag *flag);
 int		ft_type_int(va_list ap, t_flag *flag);
+
 int		ft_type_unsigned_int(va_list ap, t_flag *flag);
 int		ft_type_hex_lower(va_list ap, t_flag *flag);
 int		ft_type_hex_upper(va_list ap, t_flag *flag);

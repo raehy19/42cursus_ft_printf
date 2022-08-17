@@ -6,7 +6,7 @@
 /*   By: rjeong <rjeong@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 15:54:42 by rjeong            #+#    #+#             */
-/*   Updated: 2022/08/17 15:54:43 by rjeong           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:17:39 by rjeong           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	ft_print_num_plus(char *str, int len, t_flag *flag)
 	const char	*sign = "+ ";
 
 	if (flag->display_sign == 0)
-		return (ft_print_unsigned(str, len ,flag));
+		return (ft_print_unsigned(str, len, flag));
 	if (flag->precision > len)
 		len = flag->precision;
 	if (flag->fill_zero == 1)
