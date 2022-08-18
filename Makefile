@@ -37,21 +37,6 @@ PRINTF_OBJS := $(PRINTF_SRCS:.c=.o)
 
 PRINTF_OBJS_BONUS := $(PRINTF_SRCS_BONUS:.c=.o)
 
-$(LIBFT) :
-	make -C $(LIBFT_DIR) all
-
-$(NAME) : $(LIBFT) $(PRINTF_OBJS)
-	cp $(LIBFT) ./$(NAME)
-	$(AR) $(ARFLAG) $@ $^
-
-$(BONUS_NAME) : $(LIBFT) $(PRINTF_OBJS_BONUS)
-	cp $(LIBFT) ./$(BONUS_NAME)
-	$(AR) $(ARFLAG) $@ $^
-	cp $(BONUS_NAME) ./$(NAME)
-
-%.o : %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
 all : $(NAME)
 
 clean :
@@ -68,6 +53,21 @@ re : fclean
 	make all
 
 bonus : $(BONUS_NAME)
+
+$(LIBFT) :
+	make -C $(LIBFT_DIR) all
+
+$(NAME) : $(LIBFT) $(PRINTF_OBJS)
+	cp $(LIBFT) ./$(NAME)
+	$(AR) $(ARFLAG) $@ $^
+
+$(BONUS_NAME) : $(LIBFT) $(PRINTF_OBJS_BONUS)
+	cp $(LIBFT) ./$(BONUS_NAME)
+	$(AR) $(ARFLAG) $@ $^
+	cp $(BONUS_NAME) ./$(NAME)
+
+%.o : %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY : all bonus clean fclean re
 
