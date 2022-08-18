@@ -6,7 +6,7 @@
 #    By: rjeong <rjeong@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/03 14:55:50 by rjeong            #+#    #+#              #
-#    Updated: 2022/08/11 11:10:45 by rjeong           ###   ########.fr        #
+#    Updated: 2022/08/18 11:35:01 by rjeong           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,11 @@ $(NAME) : $(LIBFT) $(PRINTF_OBJS)
 	cp $(LIBFT) ./$(NAME)
 	$(AR) $(ARFLAG) $@ $^
 
+$(BONUS_NAME) : $(LIBFT) $(PRINTF_OBJS_BONUS)
+	cp $(LIBFT) ./$(BONUS_NAME)
+	$(AR) $(ARFLAG) $@ $^
+	cp $(BONUS_NAME) ./$(NAME)
+
 %.o : %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
@@ -63,15 +68,6 @@ re : fclean
 	make all
 
 bonus : $(BONUS_NAME)
-
-$(BONUS_NAME) : $(LIBFT) $(PRINTF_OBJS_BONUS)
-	cp $(LIBFT) ./$(BONUS_NAME)
-	$(AR) $(ARFLAG) $@ $^
-	cp $(BONUS_NAME) ./$(NAME)
-
-run : bonus
-	gcc libftprintf.a main.c
-	./a.out
 
 .PHONY : all bonus clean fclean re
 
