@@ -30,9 +30,7 @@ int	ft_print_space(int is_zero, int count)
 	while (++i < count)
 		if (write(1, &space, 1) < 0)
 			return (-1);
-	if (count > 0)
-		return (count);
-	return (0);
+	return (ft_max(count, 0));
 }
 
 int	ft_print_unsigned(char *str, int len, t_flag *flag)

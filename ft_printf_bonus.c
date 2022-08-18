@@ -24,6 +24,8 @@ int	ft_choose_functions(int i, va_list ap, t_flag *flag)
 	functions[5] = ft_type_hex_lower;
 	functions[6] = ft_type_hex_upper;
 	functions[7] = ft_type_pointer;
+	if (i > 7)
+		return (-1);
 	return (functions[i](ap, flag));
 }
 

@@ -27,8 +27,7 @@ int	ft_type_unsigned_int(va_list ap, t_flag *flag)
 		free(str);
 		if (flag->min_width > 0)
 			return (ft_print_space(0, flag->min_width));
-		else
-			return (0);
+		return (0);
 	}
 	if (flag->precision > -1)
 		flag->fill_zero = 0;
@@ -51,8 +50,7 @@ int	ft_type_hex_lower(va_list ap, t_flag *flag)
 		free(str);
 		if (flag->min_width > 0)
 			return (ft_print_space(0, flag->min_width));
-		else
-			return (0);
+		return (0);
 	}
 	if (flag->precision > -1)
 		flag->fill_zero = 0;

@@ -61,9 +61,7 @@ int	ft_type_string(va_list ap, t_flag *flag)
 	if (flag->align_left == 1)
 		if (ft_print_space(0, flag->min_width - len) < 0)
 			return (-1);
-	if (flag->min_width > len)
-		return (flag->min_width);
-	return (len);
+	return (ft_max(flag->min_width, len));
 }
 
 int	ft_type_int(va_list ap, t_flag *flag)
