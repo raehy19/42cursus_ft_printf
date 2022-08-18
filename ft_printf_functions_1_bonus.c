@@ -14,36 +14,31 @@
 
 int	ft_type_percent(t_flag *flag)
 {
-	int		write_size;
-
-	write_size = 0;
 	if (flag->align_left == 0)
-		write_size = ft_print_space(flag->fill_zero, flag->min_width - 1);
+		if (ft_print_space(flag->fill_zero, flag->min_width - 1) < 0)
+			return (-1);
 	if (write(1, "%", 1) < 0)
 		return (-1);
 	if (flag->align_left == 1)
-		write_size = ft_print_space(0, flag->min_width - 1);
-	if (write_size < 0)
-		return (-1);
-	return (write_size + 1);
+		if (ft_print_space(0, flag->min_width - 1) < 0)
+			return (-1);
+	return (ft_max(flag->min_width, 1));
 }
 
 int	ft_type_character(va_list ap, t_flag *flag)
 {
 	char	c;
-	int		write_size;
 
 	c = (char) va_arg(ap, int);
-	write_size = 0;
 	if (flag->align_left == 0)
-		write_size = ft_print_space(0, flag->min_width - 1);
+		if (ft_print_space(0, flag->min_width - 1) < 0)
+			return (-1);
 	if (write(1, &c, 1) < 0)
 		return (-1);
 	if (flag->align_left == 1)
-		write_size = ft_print_space(0, flag->min_width - 1);
-	if (write_size < 0)
-		return (-1);
-	return (write_size + 1);
+		if (ft_print_space(0, flag->min_width - 1) < 0)
+			return (-1);
+	return (ft_max(flag->min_width, 1));
 }
 
 int	ft_type_string(va_list ap, t_flag *flag)
