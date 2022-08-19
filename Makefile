@@ -37,7 +37,7 @@ PRINTF_OBJS := $(PRINTF_SRCS:.c=.o)
 
 PRINTF_OBJS_BONUS := $(PRINTF_SRCS_BONUS:.c=.o)
 
-all : $(NAME)
+all : bonus
 
 clean :
 	make -C $(LIBFT_DIR) clean
