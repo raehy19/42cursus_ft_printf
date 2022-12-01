@@ -95,8 +95,11 @@ int	ft_printf(const char *input, ...)
 	print_size = 0;
 	i = -1;
 	while (*(input + (++i)) != '\0')
-		if (ft_check_format(input, &i, &print_size, ap) < 0)
+	{
+		if (ft_check_format(input, &i, &print_size, ap) < 0
+			|| print_size < 0)
 			break ;
+	}
 	va_end(ap);
 	return (print_size);
 }
